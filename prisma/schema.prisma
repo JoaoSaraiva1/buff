@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model items {
+  id              Int               @id @default(autoincrement())
+  buff_id         String            @unique @db.VarChar(50)
+  item_name       String            @db.VarChar(255)
+  price_history   price_history[]
+  purchased_items purchased_items[]
+}
+
+model price_history {
+  id      Int      @id @default(autoincrement())
+  buff_id String?  @db.VarChar(50)
+  price   Decimal  @db.Decimal
+  date    DateTime @db.Date
+  items   items?   @relation(fields: [buff_id], references: [buff_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model purchased_items {
+  id             Int      @id @default(autoincrement())
+  buff_id        String?  @db.VarChar(50)
+  quantity       Int
+  purchase_price Decimal  @db.Decimal
+  purchase_date  DateTime @db.Date
+  items          items?   @relation(fields: [buff_id], references: [buff_id], onDelete: NoAction, onUpdate: NoAction)
+}
