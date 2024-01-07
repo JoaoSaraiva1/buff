@@ -18,7 +18,7 @@ model items {
 model price_history {
   id      Int      @id @default(autoincrement())
   buff_id String?  @db.VarChar(50)
-  price   Decimal  @db.Decimal
+  price   String   @db.VarChar(50)
   date    DateTime @db.Date
   items   items?   @relation(fields: [buff_id], references: [buff_id], onDelete: NoAction, onUpdate: NoAction)
 }

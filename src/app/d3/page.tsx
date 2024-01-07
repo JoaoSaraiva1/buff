@@ -1,28 +1,38 @@
-import { prisma } from "@/../prisma/index";
-import D3Chart from "./d3-chart";
+import Link from "next/link";
+
+const favs = [
+  "928047",
+  "928111",
+  "928387",
+  "927990",
+  "928045",
+  "928026",
+  "928209",
+  "928049",
+  "928188",
+  "928078",
+  "928375",
+  "928083",
+  "928019",
+  "928297",
+  "927981",
+  "928030",
+  "928029",
+];
 
 export default async function d3Page() {
-  const Items = await prisma.price_history.findMany({
-    where: {
-      buff_id: "927964",
-    },
-    include: {
-      items: {
-        select: {
-          item_name: true,
-        },
-        where: {
-          buff_id: "927964",
-        },
-      },
-    },
-  });
-
   return (
     <div className="container mx-auto bg-orange-300 w-screen h-screen">
-      <h1>D3 Page</h1>
-      <h2>Item: {Items[0]?.items?.item_name}</h2>
-      <D3Chart items={Items}></D3Chart>
+      <h1 className="text-2xl font-bold px-8 py-8">Favourites:</h1>
+      <ul className="grid grid-cols-3 gap-4 pl-10">
+        {favs.map((id) => (
+          <li key={id} className="text-lg">
+            <Link href={`/d3/${id}`}>
+              <div className="text-blue-600 hover:underline">{id}</div>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
