@@ -18,8 +18,6 @@ export default async function Page({ params }: { params: { id: string } }) {
     },
   });
 
-  console.log("🚀 ~ file: page.tsx:21 ~ Page ~ Items:", Items)
-
   return (
     <div className="container mx-auto bg-orange-300 w-screen h-screen">
       <h2 className="text-3xl px-8 py-8">Item: {Items[0]?.items?.item_name}</h2>
