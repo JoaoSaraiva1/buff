@@ -7,6 +7,12 @@ const D3Chart: React.FC<{ items: Item[] }> = ({ items }) => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Clean up previous chart
+    const existingChart = d3.select(chartRef.current).select("svg");
+    if (!existingChart.empty()) {
+      existingChart.remove();
+    }
+
     // Create the chart using d3
     const svg = d3
       .select(chartRef.current)
@@ -18,8 +24,7 @@ const D3Chart: React.FC<{ items: Item[] }> = ({ items }) => {
     svg
       .selectAll("rect")
       .data(items)
-      .enter()
-      .append("rect")
+      .join("rect")
       .attr("x", (d, i) => i * 50)
       .attr("y", (d) => 300 - d.price * 100)
       .attr("width", 40)
@@ -30,8 +35,7 @@ const D3Chart: React.FC<{ items: Item[] }> = ({ items }) => {
     svg
       .selectAll("text")
       .data(items)
-      .enter()
-      .append("text")
+      .join("text")
       .text((d) => d.price)
       .attr("x", (d, i) => i * 50 + 20)
       .attr("y", (d) => 300 - d.price * 100 - 5)
