@@ -4,15 +4,6 @@ import * as d3 from "d3";
 import { useRouter } from "next/navigation";
 import { useRef, useEffect } from "react";
 
-/* item_example {
-    id: 6277,
-    buff_id: '928029',
-    price: '19.9',
-    date: new Date('2024-01-07T00:00:00.000Z'),
-    items: {
-      item_name: 'Sticker | Natus Vincere (Gold) | Paris 2023'
-} */
-
 const D3Chart: React.FC<{ items: Item[] }> = ({ items }) => {
   const chartRef = useRef<HTMLDivElement>(null);
 
